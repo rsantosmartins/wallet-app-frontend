@@ -24,7 +24,7 @@ const onClicklogin = async () => {
   }
 
  localStorage.setItem("@WalletApp:userEmail", result.email);
- localStorage.setItem("@WalletApp:userEmail", result.name);
- localStorage.setItem("@WalletApp:userEmail", result.id);
+ localStorage.setItem("@WalletApp:userName", result.name);
+ localStorage.setItem("@WalletApp:userId", result.id);
  window.open("./SRC/pages/home/index.html", "_self");
 };
