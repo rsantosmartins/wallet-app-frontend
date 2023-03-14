@@ -1,8 +1,9 @@
-const renderFinancelist = (data) =>{
+const renderFinancelist = (data) => {
 const table = document.getElementById("finances-table");
 
     data.map((item)=> {
       const tableRow = document.createElement("tr");
+      tableRow.className = "mt smaller"
 
       //title
       const titleTd = document.createElement("td")
@@ -10,33 +11,32 @@ const table = document.getElementById("finances-table");
       titleTd.appendChild(titleText);
       tableRow.appendChild(titleTd);
     
-
        //category
        const categoryTd = document.createElement("td");
-       const categoryText = document.createTextNode(
-        new Date(item.name).toLocaleDateString()
-        );
+       const categoryText = document.createTextNode(item.name);  
        categoryTd.appendChild(categoryText);
        tableRow.appendChild(categoryTd);
 
-  //date
-  const dateTd = document.createElement("td");
-  const dateText = document.createTextNode(new Date (item.name).toISOString());
-  dateTd.appendChild(dateText);
-  tableRow.appendChild(dateTd);
+        //date
+        const dateTd = document.createElement("td");
+        const dateText = document.createTextNode(
+          new Date (item.date).toLocaleDateString()
+        );
+        dateTd.appendChild(dateText);
+        tableRow.appendChild(dateTd);
 
-//value
-const valueTd = document.createElement("td");
-valueTd.className = "center";
-const valueText = document.createTextNode(
-  new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency:"BRL",
-   }).format(item.value)
-);
- valueTd.appendChild(valueText);
-tableRow.appendChild(valueTd);
-
+       //value
+      const valueTd = document.createElement("td");
+      valueTd.className = "center";
+      const valueText = document.createTextNode(
+      new Intl.NumberFormat("pt-BR", {
+       style: "currency",
+      currency:"BRL",
+      }).format(item.value)
+  );
+  
+  valueTd.appendChild(valueText);
+  tableRow.appendChild(valueTd);
 
 //delete
 const deleteTd = document.createElement("td");
@@ -76,12 +76,14 @@ table.appendChild(tableRow)
 
   //render revenue
    const financeCard2 = document.getElementById('finance-card-2');
-   const revenueText = document.createTextNode(new Intl.NumberFormat("pt-BR", {
+   const revenueText = document.createTextNode
+   (new Intl.NumberFormat("pt-BR", {
    style: "currency",
    currency:"BRL",
   }).format(revenues)
   );
   const revenueTextElement = document.createElement("h1");
+  revenueTextElement.className = "mt smaller"
   revenueTextElement.appendChild(revenueText);
   financeCard2.appendChild(revenueTextElement);
 
@@ -121,10 +123,11 @@ const onLoadFinancesData = async () => {
       const date = "2022-12-15";
       const email = localStorage.getItem("@WalletApp:userEmail");
      const result = await fetch(
-        `https://mp-wallet-app-api.herokuapp.com/finances?date=${date}}`,
+        `https://mp-wallet-app-api.herokuapp.com/finances?date=${date}`,
         {
           method: 'GET',
          headers: {
+          email: email,
         },
      }
     );
